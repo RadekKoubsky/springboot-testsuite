@@ -16,12 +16,19 @@
 
 package org.jboss.snowdrop.springboot.health;
 
+import java.util.concurrent.TimeUnit;
+
+import com.jayway.awaitility.Awaitility;
+import io.fabric8.kubernetes.assertions.Assertions;
 import io.fabric8.kubernetes.client.KubernetesClient;
-import io.obsidian.testsuite.common.OpenShiftUtils;
+import io.fabric8.openshift.api.model.Route;
+import io.obsidian.testsuite.common.Ensure;
+import io.obsidian.testsuite.common.Kube;
 import io.restassured.RestAssured;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -36,10 +43,30 @@ import static org.hamcrest.CoreMatchers.is;
 @RunWith(Arquillian.class)
 public class HealthCheckApplicationHealthyIT {
 
-	private static final String ROUTE_NAME = "health-check";
+	private static final String ROUTE_NAME = System.getProperty("route.name", "health-check");
 
 	@ArquillianResource
-	private KubernetesClient kubernetesClient;
+	private KubernetesClient client;
+
+	private Route route;
+
+	@Before
+	public void before() {
+		this.route = Kube.createRouteForService(this.client, ROUTE_NAME, true);
+		Assertions.assertThat(this.route)
+				.isNotNull();
+
+		Ensure.ensureThat("the pod is ready and stay ready for a bit",
+				() -> Assertions.assertThat(this.client)
+						.deployments()
+						.pods()
+						.isPodReadyForPeriod());
+
+		Ensure.ensureThat("the route is served correctly", () ->
+				Awaitility.await()
+						.atMost(1, TimeUnit.MINUTES)
+						.until(() -> Kube.isRouteServed(this.route)));
+	}
 
 	@Test
 	public void shouldGetHealthyResponse() {
@@ -53,7 +80,8 @@ public class HealthCheckApplicationHealthyIT {
 	}
 
 	private String getHealthUrl() {
-		return OpenShiftUtils.getRouteUrl(this.kubernetesClient, ROUTE_NAME) + "/health";
+		return Kube.urlForRoute(this.route)
+				.toString() + "/health";
 	}
 
 }

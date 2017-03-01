@@ -20,7 +20,7 @@ mvn clean verify -Popenshift -Dopenshift.username=admin \
 
 2) With a Token
 ----
-mvn clean verify -Popenshift -kubernetes.auth.token=TOKEN \
+mvn clean verify -Popenshift -Dkubernetes.auth.token=TOKEN \
                              -Dkubernetes.master=api.openshift.com \
                              -Dopenshift.namespace=test
 ----
