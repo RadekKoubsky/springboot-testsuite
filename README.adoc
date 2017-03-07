@@ -8,22 +8,15 @@
 
 == Instructions
 
-The command to be used to execute an Integration Test are :
+Stepts to execute the test suite are:
 
-1) Using a username and password
+1) Login to Open Shift
 ----
-mvn clean verify -Popenshift -Dopenshift.username=admin \
-                             -Dopenshift.password=admin \
-                             -Dkubernetes.master=$(minishift console --url) \
-                             -Dkubernetes.namespace=test
-----
+oc login $(minishift console --url) -u admin -p admin
 
-2) With a Token
+2) Execute tests
 ----
-mvn clean verify -Popenshift -Dkubernetes.auth.token=TOKEN \
-                             -Dkubernetes.master=api.openshift.com \
-                             -Dopenshift.namespace=test
-----
+mvn clean verify -Popenshift -Dkubernetes.namespace=test
 
 == Use cases to be investigated
 
