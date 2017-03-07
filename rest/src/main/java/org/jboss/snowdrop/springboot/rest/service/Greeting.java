@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.jboss.snowdrop.springboot.rest.cxf.service;
+package org.jboss.snowdrop.springboot.rest.service;
 
 /**
  * Greeting dto.

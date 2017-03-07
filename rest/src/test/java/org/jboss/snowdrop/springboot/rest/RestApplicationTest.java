@@ -16,7 +16,7 @@
 
 package org.jboss.snowdrop.springboot.rest;
 
-import org.jboss.snowdrop.springboot.rest.cxf.service.Greeting;
+import org.jboss.snowdrop.springboot.rest.service.Greeting;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
