@@ -13,10 +13,12 @@ Stepts to execute the test suite are:
 1) Login to Open Shift
 ----
 oc login $(minishift console --url) -u admin -p admin
+----
 
 2) Execute tests
 ----
 mvn clean verify -Popenshift -Dkubernetes.namespace=test
+----
 
 == Use cases to be investigated
 
