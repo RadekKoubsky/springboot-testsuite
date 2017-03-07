@@ -18,7 +18,7 @@ package org.jboss.snowdrop.springboot.rest.service;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,13 +31,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GreetingController {
 
-	@Value("${message}")
-	private String template;
+	@Autowired
+	private GreetingProperties properties;
 
 	private final AtomicLong counter = new AtomicLong();
 
 	@RequestMapping("/greeting")
 	public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
-		return new Greeting(this.counter.incrementAndGet(), String.format(this.template, name));
+		return new Greeting(this.counter.incrementAndGet(), String.format(this.properties.getMessage(), name));
 	}
 }
