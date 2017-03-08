@@ -62,7 +62,7 @@
   </dependencyManagement>
 
   <dependencies>
-    <dependency>
+   <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-ribbon</artifactId>
 <!--      <version>1.2.5.RELEASE</version>-->
@@ -70,8 +70,33 @@
     <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-hystrix</artifactId>
-<!--      <version>1.2.5.RELEASE</version>-->
+      <!-- <version>1.2.5.RELEASE</version> -->
     </dependency>
+
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-kubernetes-netflix</artifactId>
+      <version>0.2.0.BUILD-SNAPSHOT</version>
+    </dependency>
+
+    <!-- Use same version as used by
+    spring-cloud-starter-kubernetes-netflix
+    -->
+    <dependency>
+      <groupId>io.fabric8</groupId>
+      <artifactId>kubernetes-client</artifactId>
+      <version>1.4.19</version>
+    </dependency>
+    <dependency>
+      <groupId>io.fabric8</groupId>
+      <artifactId>kubernetes-model</artifactId>
+      <version>1.0.63</version>
+    </dependency>
+<!--    <dependency>
+      <groupId>com.squareup.okhttp3</groupId>
+      <artifactId>okhttp</artifactId>
+      <version>3.6.0</version>
+    </dependency>-->
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
