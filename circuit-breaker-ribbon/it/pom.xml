@@ -35,9 +35,9 @@
       <plugin>
         <groupId>io.fabric8</groupId>
         <artifactId>fabric8-maven-plugin</artifactId>
-        <!--<version>${fabric8.maven.plugin.version}</version>-->
         <!-- https://github.com/fabric8io/spring-cloud-kubernetes/issues/79 -->
-        <version>3.1.92</version>
+        <!-- <version>${fabric8.maven.plugin.version}</version> -->
+        <!-- <version>3.1.92</version> -->
         <configuration>
           <enricher>
             <excludes>
@@ -45,36 +45,6 @@
             </excludes>
           </enricher>
         </configuration>
-        <!--        <executions>
-                  <execution>
-                    <id>pre-resource</id>
-                    <phase>prepare-package</phase>
-                    <goals>
-                      <goal>resource</goal>
-                    </goals>
-                  </execution>
-                  <execution>
-                    <id>pre-build</id>
-                    <phase>package</phase>
-                    <goals>
-                      <goal>build</goal>
-                    </goals>
-                  </execution>
-                  <execution>
-                    <id>apply</id>
-                    <phase>pre-integration-test</phase>
-                    <goals>
-                      <goal>apply</goal>
-                    </goals>
-                  </execution>
-                  <execution>
-                    <id>post-integration-test</id>
-                    <phase>post-integration-test</phase>
-                    <goals>
-                      <goal>undeploy</goal>
-                    </goals>
-                  </execution>
-                </executions>-->
         <dependencies>
           <dependency>
             <groupId>org.jboss.snowdrop.testsuite</groupId>
@@ -86,11 +56,6 @@
             <artifactId>server</artifactId>
             <version>1.0.0-SNAPSHOT</version>
           </dependency>
-<!--          <dependency>
-            <groupId>io.fabric8</groupId>
-            <artifactId>kubernetes-client</artifactId>
-            <version>2.2.1</version>
-          </dependency>-->
         </dependencies>
       </plugin>
 
