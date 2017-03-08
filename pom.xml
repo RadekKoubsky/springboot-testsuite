@@ -51,6 +51,7 @@
   </properties>
 
   <modules>
+    <module>data-jdbc</module>
     <module>data-jpa</module>
     <module>health-check</module>
     <module>hibernate</module>

@@ -1,0 +1,9 @@
+spec:
+  template:
+    spec:
+      containers:
+        - readinessProbe:
+            httpGet:
+              path: /bands/1
+              port: 8080
+              scheme: HTTP

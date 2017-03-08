@@ -14,16 +14,13 @@
  * limitations under the License.
  */
 
-package org.jboss.snowdrop.springboot.hibernate;
-
-import javax.persistence.EntityManager;
+package org.jboss.snowdrop.springboot.jdbc;
 
 import io.obsidian.testsuite.jpa.domain.Band;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,20 +36,24 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Controller
 public class BandsController {
 
+	private BandsRepository bandsRepository;
+
 	@Autowired
-	private EntityManager entityManager;
+	public BandsController(BandsRepository bandsRepository) {
+		this.bandsRepository = bandsRepository;
+	}
 
 	@ResponseBody
 	@GetMapping("/bands/{id}")
 	public Band get(@PathVariable("id") Long id) {
-		return this.entityManager.find(Band.class, id);
+		return this.bandsRepository.findById(id);
 	}
 
-	@Transactional
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/bands")
 	public void post(@RequestBody Band band) {
-		this.entityManager.persist(band);
+		System.out.println(String.format("Creating band with id=%d and name=%s", band.getId(), band.getName()));
+		this.bandsRepository.insert(band);
 	}
 
 }
