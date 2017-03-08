@@ -3,7 +3,6 @@ kind: Route
 metadata:
   name: client
 spec:
-  host: client.spring.ocp.cloud.lab.eng.bos.redhat.com
   port:
     targetPort: 8080
   to:
