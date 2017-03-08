@@ -40,7 +40,7 @@ import org.springframework.web.client.RestTemplate;
  * @author Obsidian Quickstarts
  */
 @RestController
-@RibbonClient(name = "backend")
+@RibbonClient(name = "backend", configuration = ClientHelloConfiguration.class)
 public class Controller {
 
 	@LoadBalanced
@@ -86,7 +86,7 @@ public class Controller {
 		@Override
 		protected String run() throws Exception {
 			return Controller.this.restTemplate
-					.getForObject("http://backend/test?indent={indent}", String.class,
+					.getForObject("http://backend/greeting?indent={indent}", String.class,
 							"----");
 		}
 
