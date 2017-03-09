@@ -20,3 +20,7 @@ mvn clean package fabric8:deploy
 export CLIENT=$(oc get route/client -o yaml | grep -m 1 'host:' | cut -c9-)
 curl http://$CLIENT/hi
 ```
+
+# Report
+
+- Test using only Ribbon + Loadbalancing is working if you increase the number of replica of the `backend` before to start the `client`
