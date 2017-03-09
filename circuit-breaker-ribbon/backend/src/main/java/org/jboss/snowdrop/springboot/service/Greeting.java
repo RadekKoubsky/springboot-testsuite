@@ -18,33 +18,55 @@ package org.jboss.snowdrop.springboot.service;
 
 import java.time.LocalTime;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Server controller.
+ * Greeting Service.
  *
  * @author Obsidian Quickstarts
  */
 @RestController
-public class Controller {
+public class Greeting {
+
+	/**
+	 * String Variable HOSTNAME.
+	 */
+	public static final String HOSTNAME = "HOSTNAME";
+
+	private static Logger log = LoggerFactory.getLogger(Greeting.class);
 
 	@RequestMapping("/")
 	public String health() {
 		//For Ribbon pings
-		return "";
+		log.info("Access /");
+		return "Hi!" + ", from " + this.hostName + ", pod !";
 	}
 
-	@RequestMapping("/test")
+	private final String hostName;
+
+	public Greeting() {
+		this.hostName = System.getenv(HOSTNAME);
+	}
+
+	@RequestMapping("/greeting")
 	public String test(@RequestParam(value = "indent", defaultValue = "--") String indent) {
-		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append(indent).append(" backend service called at ")
-				.append(LocalTime.now()).append("<br/>");
+		StringBuilder sb = new StringBuilder();
+		sb.append(indent)
+				.append(" backend service called at ")
+				.append(LocalTime.now())
+				.append("<br/>");
 		delay();
-		stringBuilder.append(indent).append(" backend service finished at ")
-				.append(LocalTime.now()).append("<br/>");
-		return stringBuilder.toString();
+		sb.append("Backend Say Hello from " + this.hostName + "!");
+		sb.append(indent)
+				.append(" backend service finished at ")
+				.append(LocalTime.now())
+				.append("<br/>");
+		return sb.toString();
 	}
 
 	private static synchronized void delay() {

@@ -25,11 +25,11 @@
     <version>1.0.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>server</artifactId>
+  <artifactId>backend</artifactId>
   <packaging>jar</packaging>
 
-  <name>Snowdrop Test Suite - Circuit Breaker &amp; Ribbon - Server</name>
-  <description>Snowdrop Test Suite - Circuit Breaker &amp; Ribbon - Server</description>
+  <name>Snowdrop Test Suite - Circuit Breaker &amp; Ribbon - Backend</name>
+  <description>Snowdrop Test Suite - Circuit Breaker &amp; Ribbon - Backend</description>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

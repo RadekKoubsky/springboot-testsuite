@@ -17,13 +17,10 @@
 package org.jboss.snowdrop.springboot.service;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
 import com.netflix.hystrix.HystrixThreadPoolKey;
-import rx.Observable;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -41,7 +38,7 @@ import org.springframework.web.client.RestTemplate;
  */
 @RestController
 @RibbonClient(name = "backend", configuration = ClientHelloConfiguration.class)
-public class Controller {
+public class BalancedClient {
 
 	@LoadBalanced
 	@Bean
@@ -52,11 +49,13 @@ public class Controller {
 	@Autowired
 	RestTemplate restTemplate;
 
-	@RequestMapping("/test")
+	@RequestMapping("/hi")
 	public String test(@RequestParam(value = "count", defaultValue = "1") int count) {
 		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append("-- presentation service called at ").append(LocalTime.now())
+		stringBuilder.append("-- client called at ").append(LocalTime.now())
 				.append("<br/>");
+
+		/*
 		List<Observable<String>> observables = new ArrayList<>();
 		for (int index = 0; index < count; index++) {
 			observables.add(new BackendCall().toObservable());
@@ -69,7 +68,13 @@ public class Controller {
 			return responses.toString();
 		});
 		stringBuilder.append(zipped.toBlocking().first());
-		stringBuilder.append("-- presentation service finished at ")
+		*/
+
+		String response = BalancedClient.this.restTemplate.getForObject("http://backend/greeting?indent={indent}", String.class,
+						"----");
+		stringBuilder.append(response);
+
+		stringBuilder.append("-- client finished at ")
 				.append(LocalTime.now()).append("<br/>");
 		return stringBuilder.toString();
 	}
@@ -85,7 +90,7 @@ public class Controller {
 
 		@Override
 		protected String run() throws Exception {
-			return Controller.this.restTemplate
+			return BalancedClient.this.restTemplate
 					.getForObject("http://backend/greeting?indent={indent}", String.class,
 							"----");
 		}
