@@ -21,3 +21,4 @@ curl http://$CLIENT/hi
 # Report
 
 - Test using only Ribbon + Loadbalancing is working if you increase the number of replica of the `backend` before to start the `client`
+- Test fails using @HystrixCommand + @EnableCircuitBreaker annotations. This error is reported - https://gist.github.com/cmoulliard/7617874e05de2b455f0edf4515a13ed7
