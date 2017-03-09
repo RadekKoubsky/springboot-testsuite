@@ -22,6 +22,8 @@ import java.util.Date;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.context.annotation.Bean;
@@ -36,6 +38,8 @@ import org.springframework.web.client.RestTemplate;
  * @author Obsidian Quickstarts
  */
 @RestController
+@EnableDiscoveryClient
+@EnableCircuitBreaker
 @RibbonClient(name = "backend", configuration = ClientHelloConfiguration.class)
 public class BalancedClient {
 
