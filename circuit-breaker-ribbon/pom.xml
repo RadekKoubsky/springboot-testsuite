@@ -32,9 +32,9 @@
   <description>SpringBoot Test Suite - Circuit Breaker &amp; Ribbon</description>
 
   <modules>
+    <module>backend</module>
     <module>client</module>
-    <module>server</module>
-    <module>it</module>
+<!--    <module>it</module>-->
   </modules>
 
 </project>

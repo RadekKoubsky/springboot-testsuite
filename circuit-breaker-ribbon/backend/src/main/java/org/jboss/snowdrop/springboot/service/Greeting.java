@@ -61,7 +61,7 @@ public class Greeting {
 				.append(LocalTime.now())
 				.append("<br/>");
 		delay();
-		sb.append("Backend Say Hello from " + this.hostName + "!");
+		sb.append("Say Hello from " + this.hostName + "!").append("<br/>");
 		sb.append(indent)
 				.append(" backend service finished at ")
 				.append(LocalTime.now())
