@@ -19,9 +19,7 @@ package org.jboss.snowdrop.springboot.service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.netflix.hystrix.HystrixCommand;
-import com.netflix.hystrix.HystrixCommandGroupKey;
-import com.netflix.hystrix.HystrixThreadPoolKey;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -75,8 +73,7 @@ public class BalancedClient {
 		stringBuilder.append(zipped.toBlocking().first());
 		*/
 
-		String response = BalancedClient.this.restTemplate.getForObject("http://backend/greeting?indent={indent}", String.class,
-						"----");
+		String response = callGreetingService();
 		stringBuilder.append(response);
 
 		stringBuilder
@@ -86,9 +83,17 @@ public class BalancedClient {
 		return stringBuilder.toString();
 	}
 
-	/**
-	 * Hystrix Command.
-	 */
+	@HystrixCommand(commandKey = "GreetingCall", fallbackMethod = "greetingFallBack")
+	public String callGreetingService() {
+		return BalancedClient.this.restTemplate.getForObject("http://backend/greeting?indent={indent}", String.class,
+				"----");
+	}
+
+	public String greetingFallBack() {
+		return "FAILED to access the Greeting Service ! <br/>";
+	}
+
+	/*
 	public class BackendCall extends HystrixCommand<String> {
 		BackendCall() {
 			super(HystrixCommandGroupKey.Factory.asKey("BackendCall"),
@@ -107,4 +112,5 @@ public class BalancedClient {
 			return "FAILED <br/>";
 		}
 	}
+	*/
 }
