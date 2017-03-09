@@ -16,7 +16,8 @@
 
 package org.jboss.snowdrop.springboot.service;
 
-import java.time.LocalTime;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,17 +34,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class Greeting {
 
-	/**
-	 * String Variable HOSTNAME.
-	 */
-	public static final String HOSTNAME = "HOSTNAME";
+	private static final String HOSTNAME = "HOSTNAME";
+	private static final Logger LOG = LoggerFactory.getLogger(Greeting.class);
 
-	private static Logger log = LoggerFactory.getLogger(Greeting.class);
+	private static final SimpleDateFormat TIME_FORMATTER = new SimpleDateFormat("HH:mm:ss");
 
 	@RequestMapping("/")
 	public String health() {
 		//For Ribbon pings
-		log.info("Access /");
+		LOG.info("Ribbon client called me ...");
 		return "Hi!" + ", from " + this.hostName + ", pod !";
 	}
 
@@ -58,13 +57,13 @@ public class Greeting {
 		StringBuilder sb = new StringBuilder();
 		sb.append(indent)
 				.append(" backend service called at ")
-				.append(LocalTime.now())
+				.append(TIME_FORMATTER.format(new Date()))
 				.append("<br/>");
 		delay();
 		sb.append("Say Hello from " + this.hostName + "!").append("<br/>");
 		sb.append(indent)
 				.append(" backend service finished at ")
-				.append(LocalTime.now())
+				.append(TIME_FORMATTER.format(new Date()))
 				.append("<br/>");
 		return sb.toString();
 	}

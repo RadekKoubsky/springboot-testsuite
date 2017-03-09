@@ -16,7 +16,8 @@
 
 package org.jboss.snowdrop.springboot.service;
 
-import java.time.LocalTime;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
@@ -40,6 +41,8 @@ import org.springframework.web.client.RestTemplate;
 @RibbonClient(name = "backend", configuration = ClientHelloConfiguration.class)
 public class BalancedClient {
 
+	private static final SimpleDateFormat TIME_FORMATTER = new SimpleDateFormat("HH:mm:ss");
+
 	@LoadBalanced
 	@Bean
 	RestTemplate restTemplate() {
@@ -52,7 +55,9 @@ public class BalancedClient {
 	@RequestMapping("/hi")
 	public String test(@RequestParam(value = "count", defaultValue = "1") int count) {
 		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append("-- client called at ").append(LocalTime.now())
+		stringBuilder
+				.append("-- client called at ")
+				.append(TIME_FORMATTER.format(new Date()))
 				.append("<br/>");
 
 		/*
@@ -74,8 +79,10 @@ public class BalancedClient {
 						"----");
 		stringBuilder.append(response);
 
-		stringBuilder.append("-- client finished at ")
-				.append(LocalTime.now()).append("<br/>");
+		stringBuilder
+				.append("-- client finished at ")
+				.append(TIME_FORMATTER.format(new Date()))
+				.append("<br/>");
 		return stringBuilder.toString();
 	}
 
