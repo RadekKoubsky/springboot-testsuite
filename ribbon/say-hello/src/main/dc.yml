@@ -3,7 +3,7 @@ kind: DeploymentConfig
 metadata:
   name: say-hello
 spec:
-  replicas: 2
+  replicas: 1
   strategy:
     rollingParams:
       timeoutSeconds: 10800

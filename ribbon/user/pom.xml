@@ -74,18 +74,17 @@
       <scope>test</scope>
     </dependency>
 
+    <!-- Fabric8 Cloud -->
     <dependency>
       <groupId>io.fabric8</groupId>
       <artifactId>spring-cloud-starter-kubernetes-all</artifactId>
       <version>${spring-cloud-kubernetes.version}</version>
     </dependency>
-
     <dependency>
       <groupId>io.fabric8</groupId>
       <artifactId>spring-cloud-kubernetes-compat</artifactId>
       <version>${spring-cloud-kubernetes.version}</version>
     </dependency>
-
     <dependency>
       <groupId>io.fabric8</groupId>
       <artifactId>kubernetes-client</artifactId>
@@ -103,13 +102,11 @@
       <plugin>
         <groupId>io.fabric8</groupId>
         <artifactId>fabric8-maven-plugin</artifactId>
-        <version>3.2.9</version>
         <executions>
           <execution>
             <id>fmp</id>
             <goals>
               <goal>resource</goal>
-              <goal>helm</goal>
               <goal>build</goal>
             </goals>
           </execution>
