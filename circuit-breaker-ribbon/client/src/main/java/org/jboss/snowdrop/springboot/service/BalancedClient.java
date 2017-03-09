@@ -80,24 +80,11 @@ public class BalancedClient {
 		});
 		stringBuilder.append(zipped.toBlocking().first());
 
-		//String response = callGreetingService();
-		//stringBuilder.append(response);
-
 		stringBuilder
 				.append("-- client finished at ")
 				.append(TIME_FORMATTER.format(new Date()))
 				.append("<br/>");
 		return stringBuilder.toString();
-	}
-
-	//@HystrixCommand(commandKey = "GreetingCall", fallbackMethod = "greetingFallBack")
-	public String callGreetingService() {
-		return BalancedClient.this.restTemplate.getForObject("http://backend/greeting?indent={indent}", String.class,
-				"----");
-	}
-
-	public String greetingFallBack() {
-		return "FAILED to access the Greeting Service ! <br/>";
 	}
 
 	/**
