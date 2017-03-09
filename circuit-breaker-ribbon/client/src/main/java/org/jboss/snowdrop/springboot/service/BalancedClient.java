@@ -17,9 +17,14 @@
 package org.jboss.snowdrop.springboot.service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.HystrixCommand;
+import com.netflix.hystrix.HystrixCommandGroupKey;
+import com.netflix.hystrix.HystrixThreadPoolKey;
+import rx.Observable;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
@@ -62,7 +67,6 @@ public class BalancedClient {
 				.append(TIME_FORMATTER.format(new Date()))
 				.append("<br/>");
 
-		/*
 		List<Observable<String>> observables = new ArrayList<>();
 		for (int index = 0; index < count; index++) {
 			observables.add(new BackendCall().toObservable());
@@ -75,10 +79,9 @@ public class BalancedClient {
 			return responses.toString();
 		});
 		stringBuilder.append(zipped.toBlocking().first());
-		*/
 
-		String response = callGreetingService();
-		stringBuilder.append(response);
+		//String response = callGreetingService();
+		//stringBuilder.append(response);
 
 		stringBuilder
 				.append("-- client finished at ")
@@ -87,7 +90,7 @@ public class BalancedClient {
 		return stringBuilder.toString();
 	}
 
-	@HystrixCommand(commandKey = "GreetingCall", fallbackMethod = "greetingFallBack")
+	//@HystrixCommand(commandKey = "GreetingCall", fallbackMethod = "greetingFallBack")
 	public String callGreetingService() {
 		return BalancedClient.this.restTemplate.getForObject("http://backend/greeting?indent={indent}", String.class,
 				"----");
@@ -97,8 +100,16 @@ public class BalancedClient {
 		return "FAILED to access the Greeting Service ! <br/>";
 	}
 
-	/*
+	/**
+	 * Backend Circuit Breaker.
+	 *
+	 * @author Obsidian Quickstarts
+	 */
 	public class BackendCall extends HystrixCommand<String> {
+
+		/**
+		 * Command to be registered.
+		 */
 		BackendCall() {
 			super(HystrixCommandGroupKey.Factory.asKey("BackendCall"),
 					HystrixThreadPoolKey.Factory.asKey("BackendCallThread"));
@@ -116,5 +127,5 @@ public class BalancedClient {
 			return "FAILED <br/>";
 		}
 	}
-	*/
+
 }
