@@ -16,19 +16,12 @@
 
 package org.jboss.snowdrop.springboot.health;
 
-import java.util.concurrent.TimeUnit;
-
-import com.jayway.awaitility.Awaitility;
-import io.fabric8.kubernetes.assertions.Assertions;
-import io.fabric8.kubernetes.client.KubernetesClient;
-import io.fabric8.openshift.api.model.Route;
-import io.obsidian.testsuite.common.Ensure;
-import io.obsidian.testsuite.common.Kube;
+import io.obsidian.testsuite.common.OpenShiftTestAssistant;
 import io.restassured.RestAssured;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -43,29 +36,19 @@ import static org.hamcrest.CoreMatchers.is;
 @RunWith(Arquillian.class)
 public class HealthCheckApplicationHealthyIT {
 
-	private static final String ROUTE_NAME = System.getProperty("route.name", "health-check");
+	private static final String APPLICATION_NAME = System.getProperty("app.name");
 
-	@ArquillianResource
-	private KubernetesClient client;
+	private static final OpenShiftTestAssistant ASSISTANT = new OpenShiftTestAssistant(APPLICATION_NAME);
 
-	private Route route;
+	@BeforeClass
+	public static void prepare() throws Exception {
+		ASSISTANT.deployApplication();
+		ASSISTANT.awaitApplicationReadinessOrFail();
+	}
 
-	@Before
-	public void before() {
-		this.route = Kube.createRouteForService(this.client, ROUTE_NAME, true);
-		Assertions.assertThat(this.route)
-				.isNotNull();
-
-		Ensure.ensureThat("the pod is ready and stay ready for a bit",
-				() -> Assertions.assertThat(this.client)
-						.deployments()
-						.pods()
-						.isPodReadyForPeriod());
-
-		Ensure.ensureThat("the route is served correctly", () ->
-				Awaitility.await()
-						.atMost(1, TimeUnit.MINUTES)
-						.until(() -> Kube.isRouteServed(this.route)));
+	@AfterClass
+	public static void cleanup() {
+		ASSISTANT.cleanup();
 	}
 
 	@Test
@@ -80,8 +63,7 @@ public class HealthCheckApplicationHealthyIT {
 	}
 
 	private String getHealthUrl() {
-		return Kube.urlForRoute(this.route)
-				.toString() + "/health";
+		return ASSISTANT.getBaseUrl() + "/health";
 	}
 
 }

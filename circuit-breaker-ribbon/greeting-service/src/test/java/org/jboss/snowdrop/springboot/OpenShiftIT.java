@@ -16,26 +16,21 @@
 
 package org.jboss.snowdrop.springboot;
 
-import java.util.concurrent.TimeUnit;
-
-import com.jayway.awaitility.Awaitility;
-import com.jayway.restassured.RestAssured;
+import io.obsidian.testsuite.common.OpenShiftTestAssistant;
+import io.restassured.RestAssured;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runners.MethodSorters;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.not;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.not;
 
 /**
  * Hystrix with Ribbon integration test on OpenShift.
  *
  * @author <a href="mailto:gytis@redhat.com">Gytis Trikleris</a>
  */
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class OpenShiftIT {
 
 	private static final OpenShiftTestAssistant nameServiceAssistant = new OpenShiftTestAssistant("name-service",
@@ -48,30 +43,14 @@ public class OpenShiftIT {
 	public static void prepare() throws Exception {
 		nameServiceAssistant.deployApplication();
 		greetingServiceAssistant.deployApplication();
+		nameServiceAssistant.awaitApplicationReadinessOrFail();
+		greetingServiceAssistant.awaitApplicationReadinessOrFail();
 	}
 
 	@AfterClass
 	public static void cleanup() {
 		nameServiceAssistant.cleanup();
 		greetingServiceAssistant.cleanup();
-	}
-
-	@Test
-	public void testThatWeAreReady() throws Exception {
-		nameServiceAssistant.awaitApplicationReadinessOrFail();
-		greetingServiceAssistant.awaitApplicationReadinessOrFail();
-
-		// Check that the routes are served.
-		Awaitility.await()
-				.atMost(5, TimeUnit.MINUTES)
-				.catchUncaughtExceptions()
-				.until(() -> RestAssured.get(nameServiceAssistant.getBaseUrl())
-						.getStatusCode() < 500);
-		Awaitility.await()
-				.atMost(5, TimeUnit.MINUTES)
-				.catchUncaughtExceptions()
-				.until(() -> RestAssured.get(greetingServiceAssistant.getBaseUrl())
-						.getStatusCode() < 500);
 	}
 
 	@Test

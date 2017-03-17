@@ -35,19 +35,11 @@
 
   <properties>
     <arquillian.governor.version>1.0.2.Final</arquillian.governor.version>
-    <awaitility.version>1.7.0</awaitility.version>
-    <ce-arq.version>1.0.1.Final-SNAPSHOT</ce-arq.version>
     <obsidian.testsuite.version>1.0.0-SNAPSHOT</obsidian.testsuite.version>
     <rest-assured.version>3.0.2</rest-assured.version>
 
     <!-- Fabric8 Parameter to skip plugin execution -->
     <fabric8.skip>true</fabric8.skip>
-
-    <openshift.namespace/>
-    <openshift.user/>
-    <openshift.password/>
-    <openshift.token/>
-    <openshift.api/>
   </properties>
 
   <modules>
@@ -63,16 +55,6 @@
 
   <dependencyManagement>
     <dependencies>
-      <dependency>
-        <groupId>org.jboss.snowdrop.testsuite</groupId>
-        <artifactId>user</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.snowdrop.testsuite</groupId>
-        <artifactId>say-hello</artifactId>
-        <version>${project.version}</version>
-      </dependency>
       <dependency>
         <groupId>io.obsidian</groupId>
         <artifactId>obsidian-testsuite-common</artifactId>
@@ -95,6 +77,21 @@
         <version>${obsidian.testsuite.version}</version>
         <type>test-jar</type>
       </dependency>
+      <dependency><!-- TODO move to parent -->
+        <groupId>io.fabric8</groupId>
+        <artifactId>kubernetes-client</artifactId>
+        <version>2.2.0</version>
+      </dependency>
+      <dependency><!-- TODO move to parent -->
+        <groupId>io.fabric8</groupId>
+        <artifactId>openshift-client</artifactId>
+        <version>2.2.0</version>
+      </dependency>
+      <dependency><!-- TODO move to parent -->
+        <groupId>io.fabric8</groupId>
+        <artifactId>kubernetes-model</artifactId>
+        <version>1.0.67</version>
+      </dependency>
       <dependency>
         <groupId>io.rest-assured</groupId>
         <artifactId>rest-assured</artifactId>
@@ -104,11 +101,6 @@
         <groupId>org.arquillian.extension</groupId>
         <artifactId>arquillian-governor-ignore</artifactId>
         <version>${arquillian.governor.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.jayway.awaitility</groupId>
-        <artifactId>awaitility</artifactId>
-        <version>${awaitility.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -184,20 +176,6 @@
                   <goal>build</goal>
                 </goals>
               </execution>
-              <execution>
-                <id>apply</id>
-                <phase>pre-integration-test</phase>
-                <goals>
-                  <goal>apply</goal>
-                </goals>
-              </execution>
-              <execution>
-                <id>post-integration-test</id>
-                <phase>post-integration-test</phase>
-                <goals>
-                  <goal>undeploy</goal>
-                </goals>
-              </execution>
             </executions>
           </plugin>
 
@@ -206,7 +184,7 @@
             <artifactId>maven-failsafe-plugin</artifactId>
             <configuration>
               <systemPropertyVariables>
-                <route.name>${project.artifactId}</route.name>
+                <app.name>${project.artifactId}</app.name>
               </systemPropertyVariables>
             </configuration>
             <executions>
