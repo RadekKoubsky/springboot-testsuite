@@ -1,10 +1,14 @@
 # Installation
 
+* Log to OpenShift platform and create a new project
+
 ```
 oc login
 oc new-project ribbon
 oc policy add-role-to-user cluster-reader -n $(oc project -q) -z default
 ```
+* Git clone the project 
+
 
 # Build & deploy
 ```
