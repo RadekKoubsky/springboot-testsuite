@@ -8,7 +8,7 @@
 
 == Instructions
 
-Stepts to execute the test suite are:
+Steps to execute the test suite are:
 
 1) Login to Open Shift
 ----
