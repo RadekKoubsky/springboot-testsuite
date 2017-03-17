@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Greeting Service.
+ * Name service controller.
  *
  * @author <a href="mailto:gytis@redhat.com">Gytis Trikleris</a>
  */
@@ -41,6 +41,12 @@ public class NameController {
 		return this.hostName;
 	}
 
+	/**
+	 * Endpoint to get a name with a capability to delay a response for some number of milliseconds.
+	 *
+	 * @param delayValue Milliseconds for how long the response should be delayed.
+	 * @return Host name.
+	 */
 	@RequestMapping("/name")
 	public String getName(@RequestParam(value = "delay", defaultValue = "0") int delayValue) {
 		LOG.info(String.format("Returning a name '%s' with a delay '%d'", this.hostName, delayValue));
