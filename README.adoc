@@ -15,9 +15,14 @@ Stepts to execute the test suite are:
 oc login $(minishift console --url) -u admin -p admin
 ----
 
-2) Execute tests
+2) Grant permissions for config map
 ----
-mvn clean verify -Popenshift -Dkubernetes.namespace=test
+oc policy add-role-to-user view -n $(oc project -q) -z default
+----
+
+3) Execute tests
+----
+mvn clean verify -Popenshift
 ----
 
 == Use cases to be investigated
@@ -50,7 +55,7 @@ for each call.
 
 ----
 http http://localhost:8080/greeting
-HTTP/1.1 200 
+HTTP/1.1 200
 Content-Type: application/json;charset=UTF-8
 Date: Thu, 23 Feb 2017 08:11:08 GMT
 Transfer-Encoding: chunked
