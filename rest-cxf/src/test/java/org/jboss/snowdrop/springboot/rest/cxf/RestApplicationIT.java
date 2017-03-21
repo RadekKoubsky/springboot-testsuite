@@ -17,19 +17,15 @@
 package org.jboss.snowdrop.springboot.rest.cxf;
 
 import io.obsidian.testsuite.common.OpenShiftTestAssistant;
-import io.restassured.RestAssured;
-import org.hamcrest.core.Is;
-import org.hamcrest.core.IsEqual;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Test;
 
 /**
- * Simple Boot REST Test case.
+ * RestApplication Open Shift integration test.
  *
  * @author <a href="mailto:gytis@redhat.com">Gytis Trikleris</a>
  */
-public class OpenShiftIT {
+public class RestApplicationIT extends RestApplicationTestBase {
 
 	private static final String APPLICATION_NAME = System.getProperty("app.name");
 
@@ -45,16 +41,9 @@ public class OpenShiftIT {
 	public static void cleanup() {
 		ASSISTANT.cleanup();
 	}
-	@Test
-	public void shouldGetHelloWorld() throws Exception {
-		RestAssured.given()
-				.baseUri(ASSISTANT.getBaseUrl())
-				.when()
-				.get("/greeting")
-				.then()
-				.assertThat()
-				.body(Is.is(IsEqual.equalTo("{\"id\":1,\"content\":\"Hello, World!\"}")));
 
+	protected String getGreetingUrl() {
+		return ASSISTANT.getBaseUrl() + "/greeting";
 	}
 
 }

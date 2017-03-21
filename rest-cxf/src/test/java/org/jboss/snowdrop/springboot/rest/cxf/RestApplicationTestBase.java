@@ -14,29 +14,30 @@
  * limitations under the License.
  */
 
-package org.jboss.snowdrop.springboot.rest;
+package org.jboss.snowdrop.springboot.rest.cxf;
 
-import org.junit.runner.RunWith;
+import org.jboss.snowdrop.springboot.rest.cxf.service.Greeting;
+import org.junit.Assert;
+import org.junit.Test;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.client.RestTemplate;
 
 /**
- * RestApplication unit test.
+ * Base RestApplication test class shared by unit and integration test classes.
  *
  * @author <a href="mailto:gytis@redhat.com">Gytis Trikleris</a>
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)  // Use a random port
-public class RestApplicationTest extends RestApplicationTestBase {
+public abstract class RestApplicationTestBase {
 
-	// This will hold the port number the server was started on
-	@Value("${local.server.port}")
-	int port;
+	private final RestTemplate template = new RestTemplate();
 
-	protected String getGreetingUrl() {
-		return String.format("http://localhost:%d/greeting", this.port);
+	@Test
+	public void shouldGetHelloWorld() {
+		Greeting message = this.template.getForObject(getGreetingUrl(), Greeting.class);
+		Assert.assertEquals("Hello, World!", message.getContent());
+		Assert.assertEquals(1, message.getId());
 	}
+
+	protected abstract String getGreetingUrl();
 
 }
