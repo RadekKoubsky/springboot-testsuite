@@ -30,8 +30,8 @@
 
     <!-- Test dependencies -->
     <dependency>
-      <groupId>io.obsidian</groupId>
-      <artifactId>obsidian-testsuite-common</artifactId>
+      <groupId>org.jboss.snowdrop.testsuite</groupId>
+      <artifactId>common-utils</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -42,11 +42,6 @@
     <dependency>
       <groupId>io.rest-assured</groupId>
       <artifactId>rest-assured</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.arquillian.junit</groupId>
-      <artifactId>arquillian-junit-container</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>

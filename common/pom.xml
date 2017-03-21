@@ -33,5 +33,6 @@
 
   <modules>
     <module>common-entities</module>
+    <module>common-utils</module>
   </modules>
 </project>
