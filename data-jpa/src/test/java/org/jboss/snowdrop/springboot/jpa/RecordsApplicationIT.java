@@ -16,27 +16,35 @@
 
 package org.jboss.snowdrop.springboot.jpa;
 
-import org.junit.runner.RunWith;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import io.obsidian.testsuite.common.OpenShiftTestAssistant;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 
 /**
- * Local test for records application.
+ * OpenShift integration test for records application.
  *
  * @author <a href="mailto:gytis@redhat.com">Gytis Trikleris</a>
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class RecordsApplicationTest extends RecordsApplicationTestBase {
+public class RecordsApplicationIT extends RecordsApplicationTestBase {
 
-	@Value("${local.server.port}")
-	private int port;
+	private static final String APPLICATION_NAME = System.getProperty("app.name");
+
+	private static final OpenShiftTestAssistant ASSISTANT = new OpenShiftTestAssistant(APPLICATION_NAME);
+
+	@BeforeClass
+	public static void prepare() throws Exception {
+		ASSISTANT.deployApplication();
+		ASSISTANT.awaitApplicationReadinessOrFail();
+	}
+
+	@AfterClass
+	public static void cleanup() {
+		ASSISTANT.cleanup();
+	}
 
 	@Override
 	protected String getBaseUrl() {
-		return String.format("http://localhost:%d", this.port);
+		return ASSISTANT.getBaseUrl();
 	}
 
 }

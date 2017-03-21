@@ -35,8 +35,9 @@
 
   <dependencies>
     <dependency>
-      <groupId>io.obsidian</groupId>
-      <artifactId>obsidian-testsuite-jpa</artifactId>
+      <groupId>org.jboss.snowdrop.testsuite</groupId>
+      <artifactId>common-entities</artifactId>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -57,15 +58,9 @@
     </dependency>
 
     <!-- Test dependencies -->
-    <dependency><!-- Needed by the imported IT tests -->
-      <groupId>io.obsidian</groupId>
-      <artifactId>obsidian-testsuite-common</artifactId>
-      <scope>test</scope>
-    </dependency>
     <dependency>
       <groupId>io.obsidian</groupId>
-      <artifactId>obsidian-testsuite-jpa</artifactId>
-      <type>test-jar</type>
+      <artifactId>obsidian-testsuite-common</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -78,42 +73,5 @@
       <artifactId>rest-assured</artifactId>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.jboss.arquillian.junit</groupId>
-      <artifactId>arquillian-junit-container</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.arquillian.extension</groupId>
-      <artifactId>arquillian-governor-ignore</artifactId>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>unpack-dependencies</id>
-            <phase>process-test-classes</phase>
-            <goals>
-              <goal>unpack-dependencies</goal>
-            </goals>
-            <configuration>
-              <includeGroupIds>io.obsidian</includeGroupIds>
-              <includeArtifactIds>obsidian-testsuite-jpa</includeArtifactIds>
-              <includeTypes>test-jar</includeTypes>
-              <includeScope>test</includeScope>
-              <outputDirectory>${project.build.directory}/test-classes</outputDirectory>
-              <overWriteReleases>false</overWriteReleases>
-              <overWriteSnapshots>true</overWriteSnapshots>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
 </project>

@@ -16,7 +16,7 @@
 
 package org.jboss.snowdrop.springboot.jpa.service;
 
-import io.obsidian.testsuite.jpa.domain.Band;
+import org.jboss.snowdrop.springboot.common.entities.Band;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
