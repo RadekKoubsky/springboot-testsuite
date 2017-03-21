@@ -16,7 +16,7 @@
 
 package org.jboss.snowdrop.springboot.jdbc;
 
-import io.obsidian.testsuite.jpa.domain.Band;
+import org.jboss.snowdrop.springboot.common.entities.Band;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

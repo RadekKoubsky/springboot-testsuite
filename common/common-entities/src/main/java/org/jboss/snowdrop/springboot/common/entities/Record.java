@@ -14,29 +14,49 @@
  * limitations under the License.
  */
 
-package org.jboss.snowdrop.springboot.jdbc;
+package org.jboss.snowdrop.springboot.common.entities;
 
-import org.junit.runner.RunWith;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
- * Local test for records application.
+ * Record released by a {@link Band}.
  *
  * @author <a href="mailto:gytis@redhat.com">Gytis Trikleris</a>
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class RecordsApplicationTest extends RecordsApplicationTestBase {
+@Entity
+public class Record {
 
-	@Value("${local.server.port}")
-	private int port;
+	@Id
+	@GeneratedValue
+	private Long id;
 
-	@Override
-	protected String getBaseUrl() {
-		return String.format("http://localhost:%d", this.port);
+	private String name;
+
+	private Long bandId;
+
+	public Long getId() {
+		return this.id;
 	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Long getBandId() {
+		return this.bandId;
+	}
+
+	public void setBandId(Long bandId) {
+		this.bandId = bandId;
+	}
 }

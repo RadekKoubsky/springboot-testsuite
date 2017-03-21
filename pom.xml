@@ -50,6 +50,7 @@
     <module>rest</module>
     <module>rest-cxf</module>
     <module>circuit-breaker-ribbon</module>
+    <module>common</module>
     <!--<module>ribbon</module>-->
   </modules>
 

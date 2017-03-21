@@ -19,7 +19,7 @@ package org.jboss.snowdrop.springboot.jdbc;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import io.obsidian.testsuite.jpa.domain.Band;
+import org.jboss.snowdrop.springboot.common.entities.Band;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

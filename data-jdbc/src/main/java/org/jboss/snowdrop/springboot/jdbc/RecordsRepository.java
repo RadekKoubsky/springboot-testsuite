@@ -20,7 +20,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import io.obsidian.testsuite.jpa.domain.Record;
+import org.jboss.snowdrop.springboot.common.entities.Record;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
