@@ -18,17 +18,22 @@ package org.jboss.snowdrop.springboot.rest.cxf.service;
 
 import java.util.concurrent.atomic.AtomicLong;
 
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Component;
 
 /**
  * Greeting controller.
  *
  * @author Obsidian Quickstarts
  */
-@RestController
+@Component
+@Path("/api")
 public class GreetingController {
 
 	@Autowired
@@ -36,8 +41,10 @@ public class GreetingController {
 
 	private final AtomicLong counter = new AtomicLong();
 
-	@RequestMapping("/greeting")
-	public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
+	@GET
+	@Path("/greeting")
+	@Produces("application/json")
+	public Greeting greeting(@DefaultValue("World") @QueryParam("name") String name) {
 		return new Greeting(this.counter.incrementAndGet(), String.format(this.properties.getMessage(), name));
 	}
 }

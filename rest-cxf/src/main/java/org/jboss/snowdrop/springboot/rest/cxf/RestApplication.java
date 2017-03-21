@@ -16,8 +16,11 @@
 
 package org.jboss.snowdrop.springboot.rest.cxf;
 
+import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 /**
  * Simple REST app.
@@ -31,4 +34,8 @@ public class RestApplication {
 		SpringApplication.run(RestApplication.class, args);
 	}
 
+	@Bean
+	public JacksonJsonProvider Config() {
+		return new JacksonJsonProvider();
+	}
 }
