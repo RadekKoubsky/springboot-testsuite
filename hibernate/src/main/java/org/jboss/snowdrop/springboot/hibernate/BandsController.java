@@ -18,7 +18,7 @@ package org.jboss.snowdrop.springboot.hibernate;
 
 import javax.persistence.EntityManager;
 
-import io.obsidian.testsuite.jpa.domain.Band;
+import org.jboss.snowdrop.springboot.common.entities.Band;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

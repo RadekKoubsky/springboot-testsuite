@@ -16,23 +16,35 @@
 
 package org.jboss.snowdrop.springboot.hibernate;
 
-import org.jboss.snowdrop.springboot.common.entities.Band;
-
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+import io.obsidian.testsuite.common.OpenShiftTestAssistant;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 
 /**
- * Entry point to the records application.
+ * OpenShift integration test for records application.
  *
  * @author <a href="mailto:gytis@redhat.com">Gytis Trikleris</a>
  */
-@SpringBootApplication
-@EntityScan(basePackageClasses = Band.class)
-public class RecordsApplication {
+public class RecordsApplicationIT extends RecordsApplicationTestBase {
 
-	public static void main(String... args) {
-		SpringApplication.run(RecordsApplication.class, args);
+	private static final String APPLICATION_NAME = System.getProperty("app.name");
+
+	private static final OpenShiftTestAssistant ASSISTANT = new OpenShiftTestAssistant(APPLICATION_NAME);
+
+	@BeforeClass
+	public static void prepare() throws Exception {
+		ASSISTANT.deployApplication();
+		ASSISTANT.awaitApplicationReadinessOrFail();
+	}
+
+	@AfterClass
+	public static void cleanup() {
+		ASSISTANT.cleanup();
+	}
+
+	@Override
+	protected String getBaseUrl() {
+		return ASSISTANT.getBaseUrl();
 	}
 
 }

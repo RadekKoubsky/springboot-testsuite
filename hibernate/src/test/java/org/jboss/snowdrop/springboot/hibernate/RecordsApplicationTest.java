@@ -16,7 +16,6 @@
 
 package org.jboss.snowdrop.springboot.hibernate;
 
-import io.obsidian.testsuite.jpa.RecordsApplicationTestBase;
 import org.junit.runner.RunWith;
 
 import org.springframework.beans.factory.annotation.Value;
