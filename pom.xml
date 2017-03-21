@@ -34,7 +34,6 @@
   <description>Snowdrop Test Suite - Parent</description>
 
   <properties>
-    <arquillian.governor.version>1.0.2.Final</arquillian.governor.version>
     <obsidian.testsuite.version>1.0.0-SNAPSHOT</obsidian.testsuite.version>
     <rest-assured.version>3.0.2</rest-assured.version>
 
@@ -61,23 +60,6 @@
         <artifactId>obsidian-testsuite-common</artifactId>
         <version>${obsidian.testsuite.version}</version>
       </dependency>
-      <dependency>
-        <groupId>io.obsidian</groupId>
-        <artifactId>obsidian-testsuite-rest</artifactId>
-        <version>${obsidian.testsuite.version}</version>
-        <type>test-jar</type>
-      </dependency>
-      <dependency>
-        <groupId>io.obsidian</groupId>
-        <artifactId>obsidian-testsuite-jpa</artifactId>
-        <version>${obsidian.testsuite.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.obsidian</groupId>
-        <artifactId>obsidian-testsuite-jpa</artifactId>
-        <version>${obsidian.testsuite.version}</version>
-        <type>test-jar</type>
-      </dependency>
       <dependency><!-- TODO move to parent -->
         <groupId>io.fabric8</groupId>
         <artifactId>kubernetes-client</artifactId>
@@ -97,11 +79,6 @@
         <groupId>io.rest-assured</groupId>
         <artifactId>rest-assured</artifactId>
         <version>${rest-assured.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.arquillian.extension</groupId>
-        <artifactId>arquillian-governor-ignore</artifactId>
-        <version>${arquillian.governor.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
