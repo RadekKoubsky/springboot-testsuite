@@ -34,7 +34,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Path("/api")
-public class GreetingController {
+public class GreetingEndpoint {
 
 	@Autowired
 	private GreetingProperties properties;
