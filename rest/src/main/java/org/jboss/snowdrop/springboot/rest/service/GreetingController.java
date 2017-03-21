@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Greeting controller.
  *
- * @author Obsidian Quickstarts
+ * @author <a href="mailto:gytis@redhat.com">Gytis Trikleris</a>
  */
 @RestController
 public class GreetingController {

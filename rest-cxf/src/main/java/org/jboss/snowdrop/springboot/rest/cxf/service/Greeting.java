@@ -19,7 +19,7 @@ package org.jboss.snowdrop.springboot.rest.cxf.service;
 /**
  * Greeting dto.
  *
- * @author Obsidian Quickstarts
+ * @author <a href="mailto:cmoulliard@redhat.com">Charles Moulliard</a>
  */
 public class Greeting {
 

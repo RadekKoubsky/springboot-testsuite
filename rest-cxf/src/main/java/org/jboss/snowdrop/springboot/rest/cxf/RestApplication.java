@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Bean;
 /**
  * Simple REST app.
  *
- * @author Obsidian Quickstarts
+ * @author <a href="mailto:cmoulliard@redhat.com">Charles Moulliard</a>
  */
 @SpringBootApplication
 public class RestApplication {

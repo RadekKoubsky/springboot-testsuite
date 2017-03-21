@@ -30,7 +30,7 @@ import org.springframework.stereotype.Component;
 /**
  * Greeting controller.
  *
- * @author Obsidian Quickstarts
+ * @author <a href="mailto:cmoulliard@redhat.com">Charles Moulliard</a>
  */
 @Component
 @Path("/api")

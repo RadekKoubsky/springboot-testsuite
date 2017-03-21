@@ -19,7 +19,7 @@ package org.jboss.snowdrop.springboot.rest.service;
 /**
  * Greeting dto.
  *
- * @author Obsidian Quickstarts
+ * @author <a href="mailto:gytis@redhat.com">Gytis Trikleris</a>
  */
 public class Greeting {
 

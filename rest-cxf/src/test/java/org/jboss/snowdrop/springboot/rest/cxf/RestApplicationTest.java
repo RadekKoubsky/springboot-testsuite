@@ -29,7 +29,7 @@ import org.springframework.web.client.RestTemplate;
 /**
  * Simple REST test.
  *
- * @author Obsidian Quickstarts
+ * @author <a href="mailto:cmoulliard@redhat.com">Charles Moulliard</a>
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)  // Use a random port

@@ -22,7 +22,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * Simple REST app.
  *
- * @author Obsidian Quickstarts
+ * @author <a href="mailto:gytis@redhat.com">Gytis Trikleris</a>
  */
 @SpringBootApplication
 public class RestApplication {
