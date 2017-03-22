@@ -16,8 +16,8 @@
 
 package org.jboss.snowdrop.springboot;
 
+import io.obsidian.testsuite.common.OpenShiftTestAssistant;
 import io.restassured.RestAssured;
-import org.jboss.snowdrop.springboot.common.utils.OpenShiftTestAssistant;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;

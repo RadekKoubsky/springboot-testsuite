@@ -16,11 +16,14 @@
 
 package org.jboss.snowdrop.springboot.health;
 
+import io.obsidian.testsuite.common.OpenShiftTestAssistant;
 import io.restassured.RestAssured;
-import org.jboss.snowdrop.springboot.common.utils.OpenShiftTestAssistant;
+import org.jboss.arquillian.container.test.api.RunAsClient;
+import org.jboss.arquillian.junit.Arquillian;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static org.hamcrest.CoreMatchers.is;
 
@@ -29,6 +32,8 @@ import static org.hamcrest.CoreMatchers.is;
  *
  * @author <a href="mailto:gytis@redhat.com">Gytis Trikleris</a>
  */
+@RunAsClient
+@RunWith(Arquillian.class)
 public class HealthCheckApplicationHealthyIT {
 
 	private static final String APPLICATION_NAME = System.getProperty("app.name");

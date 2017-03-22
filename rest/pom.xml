@@ -55,8 +55,8 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.jboss.snowdrop.testsuite</groupId>
-      <artifactId>common-utils</artifactId>
+      <groupId>io.obsidian</groupId>
+      <artifactId>obsidian-testsuite-common</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>

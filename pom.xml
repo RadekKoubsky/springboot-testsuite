@@ -34,7 +34,7 @@
   <description>Snowdrop Test Suite - Parent</description>
 
   <properties>
-    <awaitility.version>1.7.0</awaitility.version>
+    <obsidian.testsuite.version>1.0.0-SNAPSHOT</obsidian.testsuite.version>
     <rest-assured.version>3.0.2</rest-assured.version>
 
     <!-- Fabric8 Parameter to skip plugin execution -->
@@ -56,14 +56,9 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.jboss.snowdrop.testsuite</groupId>
-        <artifactId>common-entities</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.snowdrop.testsuite</groupId>
-        <artifactId>common-utils</artifactId>
-        <version>${project.version}</version>
+        <groupId>io.obsidian</groupId>
+        <artifactId>obsidian-testsuite-common</artifactId>
+        <version>${obsidian.testsuite.version}</version>
       </dependency>
       <dependency><!-- TODO move to parent -->
         <groupId>io.fabric8</groupId>
@@ -84,11 +79,6 @@
         <groupId>io.rest-assured</groupId>
         <artifactId>rest-assured</artifactId>
         <version>${rest-assured.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.jayway.awaitility</groupId>
-        <artifactId>awaitility</artifactId>
-        <version>${awaitility.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
